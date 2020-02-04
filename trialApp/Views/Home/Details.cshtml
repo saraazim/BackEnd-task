@@ -1,0 +1,105 @@
+﻿@*@model IEnumerable<trialApp.Models.Item>*@
+@*@{Dictionary<Tuple<string, string>, bool> menu = ViewBag.menu;
+    if (menu == null)
+    {menu=new Dictionary<Tuple<string, string>, bool>(); }
+ }*@
+
+@{
+	ViewBag.Title = "Index";
+}
+
+<h2>model Managment</h2>
+
+
+<p>
+    @Html.ActionLink("Refresh", "Details", "Home", new { @class= "btn btn-success"})
+</p>
+
+<link href="~/Content/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    
+	<div class="box container-fluid">
+    <div class="box-header">
+        </div>
+        <div class="box-body">
+            <table  class="table table-bordered table-striped" id="example1" >
+			 <thead>
+			<tr>
+                
+                <th>
+                    question_id
+                </th>
+        <th>
+            title
+        </th>
+         
+          <th>
+              owner
+         </th>
+                <th>
+                    is_answered
+                </th>
+                <th>
+                    creation_date
+                </th>
+                <th>
+                    link
+                </th>
+                
+    </tr>
+	 <thead>
+       <tbody>
+        
+    @foreach(var item in (List<trialApp.Models.Item>)ViewData["result"])
+    {
+    <tr>
+        
+        <td>
+            @item.question_id
+        </td>
+        <td>
+            @item.title
+        </td>
+       
+        <td>
+            @item.owner.display_name 
+        </td>
+        <td>
+            @item.is_answered
+        </td>
+        <td>
+            @item.creation_date
+        </td>
+        <td>
+            <a href=@item.link> link</a>
+</td>
+          
+        
+    </tr>
+    
+    
+    @*  <tr>
+          <td>
+                @if( menu.ContainsKey(Tuple.Create("model","Edit")) ) {
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ },new{ @class = "fa fa-edit" })
+                }
+                @if( menu.ContainsKey(Tuple.Create("model","Details")) ){
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }, new { @class = "fa fa-eye" })
+                }
+                @if( menu.ContainsKey(Tuple.Create("model","Delete")) ){
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ },new {@class="fa fa-remove"})
+                }
+            </td
+        </tr>>*@
+    } 
+</tbody>
+            <tfoot>
+			
+  </tfoot>
+</table>
+</div>
+</div>
+<script>
+    $(function () {
+        $('#example1').DataTable()
+       })
+</script>
